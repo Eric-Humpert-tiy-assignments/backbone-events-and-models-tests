@@ -31,6 +31,9 @@ Ringmaster.prototype.watch = function (circus) {
     if (animal.type === 'lion') {
       self.isCalm = false;
     }
+    if (circus.animals.length > 4) {
+      self.salary = 45000;
+    }
   });
 
 }
