@@ -8,8 +8,11 @@ function Circus() {
   this.animals = [];
 }
 
+_.extend(Circus.prototype, Backbone.Events);
+
 Circus.prototype.add = function(animal) {
   this.animals.push(animal);
+  this.trigger('animalAdded', animal);
 }
 
 Circus.prototype.animalCount = function() {
@@ -18,16 +21,16 @@ Circus.prototype.animalCount = function() {
 
 function Ringmaster() {
   this.isCalm = true;
+  this.salary = 40000;
 }
 
-_.extend(Circus.prototype, Backbone.Events);
-
-Ringmaster.prototype.watch = function (watchingShow) {
+Ringmaster.prototype.watch = function (circus) {
   var self = this;
-  watchingShow.on ('Show Time!', function() {
-    if (Animal.type === 'lion') {
-      self.isCalm == false;
+  circus.on('animalAdded', function(animal) {
+    console.log('yo', animal.type);
+    if (animal.type === 'lion') {
+      self.isCalm = false;
     }
-  })
+  });
 
 }
